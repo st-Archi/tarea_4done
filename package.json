@@ -7,8 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "node server.js",
-    "start": "node .node_modules/.bin/jest --forceExit"
+    "start": "node server.js",
+    "test": "jest --watchAll --verbose",
+    "test:coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
