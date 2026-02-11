@@ -8,11 +8,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    # Aquí creamos una base de datos temporal en el servidor de GitHub
+    services:
+      mongodb:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+
     steps:
     - uses: actions/checkout@v3
+    
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '18'
-    - run: npm install
-    - run: npm test  # Esto cumple con el requisito de pruebas automatizadas
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Tests
+      # Le pasamos variables de entorno temporales para que la prueba no falle
+      run: npm test
+      env:
+        MONGO_URI: mongodb://localhost:27017/test_db
+        JWT_SECRET: secreto_de_pruebas
