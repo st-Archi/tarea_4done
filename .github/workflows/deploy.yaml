@@ -25,7 +25,7 @@ jobs:
       run: npm install
 
     - name: Run tests
-      run: npx jest --forceExi
+      run: npm test
       env:
         MONGO_URI: mongodb://127.0.0.1:27017/actividad4_db
-        JWT_SECRET: secreto_de_tarea
+        JWT_SECRET: secreto_de_amor
