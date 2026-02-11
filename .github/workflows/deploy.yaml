@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # Aquí creamos una base de datos temporal en el servidor de GitHub
+    # Esto levanta una base de datos temporal en GitHub para que el test no falle
     services:
       mongodb:
         image: mongo:latest
@@ -17,18 +17,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '18'
-
+        
     - name: Install dependencies
       run: npm install
 
-    - name: Run Tests
-      # Le pasamos variables de entorno temporales para que la prueba no falle
+    - name: Run tests
       run: npm test
       env:
         MONGO_URI: mongodb://localhost:27017/test_db
-        JWT_SECRET: secreto_de_pruebas
+        JWT_SECRET: secreto_de_tarea
